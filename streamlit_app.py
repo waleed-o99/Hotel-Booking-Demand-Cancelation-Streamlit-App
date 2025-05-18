@@ -6,10 +6,10 @@ import pickle
 
 #with open('main/best_xgboost_model.pkl', 'rb') as pickle_in:
 #model = pickle.load(pickle_in)
-model = pickle.load(open('main/best_xgboost_model.pkl', 'rb'))
+#model = pickle.load(open('main/best_xgboost_model.pkl', 'rb'))
 
 # Load model and scaler
-#model = joblib.load("main/best_xgboost_model.pkl")
+model = joblib.load("best_xgboost_model.pkl")
 CSV_FILE = "saved_data.csv"
 
 column=['hotel', 'lead_time', 'stays_in_weekend_nights', 'stays_in_week_nights',
