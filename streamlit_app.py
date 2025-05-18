@@ -71,12 +71,10 @@ with tabs[1]:
 
 
 
-        st.dataframe(df)
-        #st.table(pr)
-        if df.empty:
-            st.warning("⚠️ No data available for prediction.")
-        else:
+            st.dataframe(df)
+            #st.table(pr)
+            
             st.dataframe(pr)
 
-        st.success("✅ Prediction completed!")
-        st.balloons()
+            st.success("✅ Prediction completed!")
+            st.balloons()
