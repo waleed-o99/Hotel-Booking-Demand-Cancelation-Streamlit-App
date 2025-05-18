@@ -4,9 +4,9 @@ import os
 import joblib
 import pickle
 
-with open('best_xgboost_model.pkl', 'rb') as pickle_in:
+#with open('best_xgboost_model.pkl', 'rb') as pickle_in:
 #model = pickle.load(pickle_in)
-#model = pickle.load(open('main/best_xgboost_model.pkl', 'rb'))
+model = pickle.load(open('best_xgboost_model.pkl', 'rb'))
 
 # Load model and scaler
 #model = joblib.load("best_xgboost_model.pkl")
