@@ -5,8 +5,8 @@ import joblib
 import pickle
 
 
-with open('data/best_xgboost_model.pkl', 'rb') as pickle_in:
-model = pickle.load(pickle_in)
+#with open('data/best_xgboost_model.pkl', 'rb') as pickle_in:
+#model = pickle.load(pickle_in)
 
 #with open('best_xgboost_model.pkl', 'rb') as pickle_in:
 #model = pickle.load(pickle_in)
