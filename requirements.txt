@@ -4,5 +4,3 @@ sklearn
 joblib
 numpy
 pandas
-os
-pickle
