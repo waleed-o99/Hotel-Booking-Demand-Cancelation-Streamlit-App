@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import os
 import joblib
+import pickle
+
 
 # Load model
 model = joblib.load("best_lightgbm_model.pkl")
