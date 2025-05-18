@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 import joblib
+import pickle
 
 with open('main/best_xgboost_model.pkl', 'rb') as pickle_in:
 model = pickle.load(pickle_in)
