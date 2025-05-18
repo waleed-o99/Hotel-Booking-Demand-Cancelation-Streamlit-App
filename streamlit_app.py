@@ -8,7 +8,12 @@ import pickle
 with open('data/best_xgboost_model.pkl', 'rb') as pickle_in:
 model = pickle.load(pickle_in)
 
+#with open('best_xgboost_model.pkl', 'rb') as pickle_in:
+#model = pickle.load(pickle_in)
+#model = pickle.load(open('https://github.com/waleed-o99/blank-app/blob/3aa83c9fabf2448016b9c5b518dbbbfecb0bd73a/best_xgboost_model.pkl', 'rb'))
 
+# Load model and scaler
+#model = joblib.load("best_xgboost_model.pkl")
 
 CSV_FILE = "saved_data.csv"
 
