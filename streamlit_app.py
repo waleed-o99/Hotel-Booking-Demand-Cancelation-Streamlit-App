@@ -5,7 +5,7 @@ import joblib
 import pickle
 
 
-model = joblib.load("best_xgboost_model.pkl")
+model = joblib.load("best_lightgbm_model.pkl")
 
 CSV_FILE = "saved_data.csv"
 
