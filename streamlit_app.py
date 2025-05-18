@@ -3,8 +3,12 @@ import pandas as pd
 import os
 import joblib
 
+with open('main/best_xgboost_model.pkl', 'rb') as pickle_in:
+model = pickle.load(pickle_in)
+
+
 # Load model and scaler
-model = joblib.load("main/best_xgboost_model.pkl")
+#model = joblib.load("main/best_xgboost_model.pkl")
 CSV_FILE = "saved_data.csv"
 
 column=['hotel', 'lead_time', 'stays_in_weekend_nights', 'stays_in_week_nights',
