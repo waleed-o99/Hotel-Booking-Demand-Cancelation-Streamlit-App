@@ -1,4 +1,4 @@
-# 🎈 Blank app template
+# 🎈 Prediction of Hotel Booking Demand Cancellation - Streamlit app
 
 A simple Streamlit app template for you to modify!
 
