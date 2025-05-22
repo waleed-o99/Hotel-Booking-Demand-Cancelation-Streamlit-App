@@ -75,7 +75,7 @@ if not os.path.exists(data_input):
     pd.DataFrame(columns=column).to_csv(data_input, index=False)
 
 # App title and sidebar navigation
-st.set_page_config(page_title="Hotel Booking Cancelation Prediction App", layout="centered")
+#st.set_page_config(page_title="Hotel Booking Cancelation Prediction App", layout="centered")
 st.title("🏨 Hotel Booking Prediction")
 tabs = st.tabs(["📥 Input & Save Data", "🔍 Predict Saved Data"])
 
