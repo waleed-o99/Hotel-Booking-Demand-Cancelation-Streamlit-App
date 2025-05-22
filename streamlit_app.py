@@ -1,3 +1,4 @@
+%%writefile app.py
 import streamlit as st
 import pandas as pd
 import os
@@ -15,6 +16,31 @@ column=['hotel', 'lead_time', 'stays_in_weekend_nights', 'stays_in_week_nights',
         'deposit_type', 'days_in_waiting_list', 'customer_type', 'adr',
         'required_car_parking_spaces', 'total_of_special_requests']
 
+country_map = {'Albania': 3, 'Algeria': 48, 'Andorra': 4, 'Angola': 1, 'Argentina': 6, 'Armenia': 7,
+ 'Australia': 11, 'Austria': 12, 'Azerbaijan': 13, 'Bahrain': 20, 'Bangladesh': 18, 'Belarus': 23,
+ 'Belgium': 15, 'Bolivia': 24, 'Bosnia and Herzegovina': 22, 'Brazil': 25, 'Bulgaria': 19,
+ 'Cabo Verde': 37, 'Cameroon': 33, 'Central African Republic': 28, 'Chile': 30, 'China': 31, 'Colombia': 35,
+ 'Costa Rica': 38, 'Croatia': 71, 'Cuba': 39, 'Cyprus': 41, 'Czechia': 42, "Côte d'Ivoire": 32,
+ 'Denmark': 46, 'Dominican Republic': 47, 'Ecuador': 49, 'Egypt': 50, 'Estonia': 52, 'Finland': 54,
+ 'France': 56, 'Gabon': 58, 'Georgia': 60, 'Germany': 43, 'Ghana': 62, 'Gibraltar': 63, 'Greece': 66,
+ 'Guinea-Bissau': 65, 'Hong Kong': 69, 'Hungary': 72, 'Iceland': 79, 'India': 75, 'Indonesia': 73,
+ 'Iran, Islamic Republic of': 77, 'Iraq': 78, 'Ireland': 76, 'Italy': 81, 'Jamaica': 82, 'Japan': 85,
+ 'Jersey': 83, 'Jordan': 84, 'Kazakhstan': 86, 'Kenya': 87, 'Korea, Republic of': 91, 'Kuwait': 92,
+ 'Latvia': 101, 'Lebanon': 94, 'Lithuania': 99, 'Luxembourg': 100, 'Macao': 102, 'Malaysia': 117,
+ 'Maldives': 106, 'Malta': 110, 'Mauritius': 115, 'Mexico': 107, 'Monaco': 104, 'Montenegro': 112,
+ 'Morocco': 103, 'Mozambique': 113, 'Netherlands': 123, 'New Zealand': 126, 'Nigeria': 121,
+ 'North Macedonia': 108, 'Norway': 124, 'Oman': 127, 'Pakistan': 128, 'Palestine': 80, 'Panama': 129,
+ 'Paraguay': 136, 'Peru': 130, 'Philippines': 131, 'Poland': 133, 'Portugal': 135, 'Puerto Rico': 134,
+ 'Qatar': 138, 'Romania': 139, 'Russian Federation': 140, 'Saudi Arabia': 142, 'Senegal': 144,
+ 'Serbia': 149, 'Singapore': 145, 'Slovakia': 152, 'Slovenia': 153, 'South Africa': 174,
+ 'Spain': 51, 'Sri Lanka': 98, 'Sweden': 154, 'Switzerland': 29, 'Syrian Arab Republic': 156,
+ 'Taiwan, Province of China': 163, 'Tanzania, United Republic of': 164, 'Thailand': 158,
+ 'Tunisia': 161, 'Turkey': 162, 'Ukraine': 166, 'United Arab Emirates': 5, 'United Kingdom': 59,
+ 'United States': 169, 'Uruguay': 168, 'Uzbekistan': 170, 'Venezuela, Bolivarian Republic of': 171,
+ 'Viet Nam': 173, 'Zimbabwe': 176}
+
+country_names = list(country_map.keys())
+
 # Create CSV if doesn't exist
 if not os.path.exists(CSV_FILE):
     pd.DataFrame(columns=column).to_csv(CSV_FILE, index=False)
@@ -30,12 +56,11 @@ tabs = st.tabs(["📥 Input & Save Data", "🔍 Predict Saved Data"])
 # Tab 1: Input and Save
 with tabs[0]:
     st.header("📝 Enter Data")
-    f1= st.selectbox("Hotel Type", options=["City Hotel", "Resort Hotel"])
+    f1= st.selectbox("Hotel Type", options=["City Hotel", "Resort Hotel"], index=None, placeholder="Select an option...")
 
 # input duration to calculate lead_time, stays_in_weekend_nights, stays_in_week_nights
     today = date.today()
-    d = st.date_input(
-        "Select Reservation Dates", (today, ))
+    d = st.date_input("Reservation Dates", (today, ),help="select dates (start, end)")
     if len(d)==1:
       f2 = None
       f3 = None
@@ -65,32 +90,39 @@ with tabs[0]:
         f2 = lead
         f3 = weekend_nights_count
         f4 = week_nights_count
+#,step =1, label_visibility , help
+    f5 = st.number_input("Adults", min_value=0, step =1)
+    f6 = st.number_input("Children", min_value=0)
+    f7 = st.number_input("Babies", min_value=0)
+    f8 = st.multiselect("Meal", options=["Breakfast", "Lunch", "Dinner"], placeholder="Select all meal package needed...")
+    
+    f9 = st.selectbox("Country", options=country_names, index=None, placeholder="Select your Country...", help="Where are you come from?")
+    
+    
+    f10 = st.selectbox("Distribution Channel", options=[ "Direct", "Corporate", "TA/TO", "GDS"], index=None,
+                       placeholder="Select an option...", help="TA/TO:Travel Agents/Tour Operators.   \n GDS: Global Distribution System ")
+    #f11 = st.checkbox("Is Repeated Guest")
 
-    f5 = st.number_input("Adults", value=0)
-    f6 = st.number_input("Children", value=0)
-    f7 = st.number_input("Babies", value=0)
-    f8 = st.multiselect("Meal", options=["Breakfast", "Lunch", "Dinner"])
-    f9 = st.number_input("Country", value=0) ######
-    f10 = st.selectbox("Distribution Channel", options=[ "Direct", "Corporate", "TA/TO", "GDS"])
-    f11 = st.checkbox("Is Repeated Guest")
-    f12 = st.number_input("Previous Cancellations", value=0)
-    f13 = st.number_input("Previous Bookings Not Canceled", value=0)
-    f14 = st.selectbox("Deposit Type", options=["No Deposit", "Refundable", "Non Refund"])
-    f15 = st.number_input("Days in Waiting List", value=0) ############
-    f16 = st.selectbox("Customer Type", options=["Transient","Contract", "Transient-Party", "Group"])
-    f17 = st.number_input("Average Daily Rate", value=0) ######
-    f18 = st.number_input("Car Parking Spaces", value=0)
-    f19 = st.selectbox("Total of Special Requests", options=[0,1,2,3,4,5])
+    f12 = st.number_input("Previous Cancellations", min_value=0)
+    f13 = st.number_input("Previous Bookings Not Canceled", min_value=0)
+    f14 = st.selectbox("Deposit Type", options=["No Deposit", "Refundable", "Non Refund"], index=None,
+                       placeholder="Select an option...", help= "Refundable: value under the total cost of stay.   \n Non Refund: value of the total stay cost.")
+    f15 = st.number_input("Days in Waiting List", min_value=0) ############
+    f16 = st.selectbox("Customer Type", options=["Transient","Contract", "Transient-Party", "Group"], index=None, placeholder="Select an option...")
+    f17 = st.number_input("Average Daily Rate", min_value=0) ######
+    f18 = st.number_input("Car Parking Spaces", min_value=0)
+    f19 = st.selectbox("Total of Special Requests", options=[0,1,2,3,4,5], index=None, placeholder="Select an option...")
 
+#______________________is_repeated_guest_____________________________
+    # if there is a Previous Cancellations or not Canceled means repeated_guest
+    if f12 + f13 == 0:
+      f11 = 0
+    else:
+      f11 = 1
+# Save input as DF________________________________________________________________
     row_input = pd.DataFrame([[f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, 
                                 f13, f14, f15, f16, f17, f18, f19]], columns=column)
-
-#___________________is_repeated_guest_____________________________
-    if f11:
-      f11= 1
-    else:
-      f11= 0
-#__________________Hotel__________________________________
+#____________________________Hotel__________________________________
     hotel = { "City Hotel": 1, "Resort Hotel": 0 }
     for key, value in hotel.items():
         if key == f1:
@@ -100,14 +132,16 @@ with tabs[0]:
         f8 = 0
     else:
         f8 = len(f8)
+#__________________________country_______________________________
+    for key, value in country_map.items():
+        if key == f9:
+            f9 = value
 #_______________________distribution_channel____________________________
-
     distribution_channel = { "Direct": 0, "Corporate": 1, "TA/TO": 2, "GDS": 3 }
     for key, value in distribution_channel.items():
         if key == f10:
             f10 = value
 #__________________________Deposit_Type_______________________________
-
     deposit_type = { "No Deposit": 0, "Refundable": 1, "Non Refund": 2 }
     for key, value in deposit_type.items():
         if key == f14:
@@ -164,4 +198,3 @@ with tabs[1]:
             st.dataframe(data = pd.read_csv(data_input))
             st.dataframe(pr)
             st.success("✅ Prediction completed!")
-        
