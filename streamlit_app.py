@@ -164,5 +164,4 @@ with tabs[1]:
             st.dataframe(data = pd.read_csv(data_input))
             st.dataframe(pr)
             st.success("✅ Prediction completed!")
-            st.balloons()
-
+        
