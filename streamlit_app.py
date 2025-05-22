@@ -4,6 +4,33 @@ import pandas as pd
 import os
 import joblib
 from datetime import date, timedelta
+import base64
+
+def sidebar_bg(side_bg):
+
+   side_bg_ext = 'png'
+   st.markdown(
+      f"""
+      <style>
+      [data-testid="stAppViewContainer"]  {{
+          background: url(data:image/{side_bg_ext};base64,{base64.b64encode(open(side_bg, "rb").read()).decode()});
+          background-size: cover;
+          background-attachment: local;
+      }}
+
+      [data-testid="stToolbar"] {{
+      right: 2rem;
+      }}
+      </style>
+      """,
+      unsafe_allow_html=True,
+      )
+   
+side_bg = 'hotel_img.jpg'
+sidebar_bg(side_bg)
+
+
+
 
 # Load model and scaler
 model = joblib.load("best_lightgbm_model.pkl")
