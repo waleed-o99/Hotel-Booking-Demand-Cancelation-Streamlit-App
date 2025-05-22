@@ -8,7 +8,7 @@ import base64
 
 def sidebar_bg(side_bg):
 
-   side_bg_ext = 'png'
+   side_bg_ext = 'jpg'
    st.markdown(
       f"""
       <style>
