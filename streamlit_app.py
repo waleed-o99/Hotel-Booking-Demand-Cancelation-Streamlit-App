@@ -69,7 +69,7 @@ def sidebar_bg(side_bg):
 #height: 50px;
 
    
-side_bg = '/content/hotel_img.jpg'
+side_bg = 'hotel_img.jpg'
 #side_bg = '/content/hotel_img1.jpg'
 #side_bg = '/content/hotel_img2.jpg'
 sidebar_bg(side_bg)
