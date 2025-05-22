@@ -1,13 +1,13 @@
+import base64
 import streamlit as st
 import pandas as pd
 import os
 import joblib
 from datetime import date, timedelta
-import base64
 
 def sidebar_bg(side_bg):
 
-   side_bg_ext = 'jpg'
+   side_bg_ext = 'png'
    st.markdown(
       f"""
       <style>
@@ -16,16 +16,62 @@ def sidebar_bg(side_bg):
           background-size: cover;
           background-attachment: local;
       }}
+      [data-testid="stWidgetLabel"]{{
+        background-color: #F0F2F6;
+      }}
 
       [data-testid="stToolbar"] {{
       right: 2rem;
+      }}
+
+      .stTabs [data-baseweb="tab"] {{
+		      height: 50px;
+          white-space: pre-wrap;
+		      background-color: #F0F2F6;
+		      border-radius: 14px 14px 0px 0px;
+		      gap: 1px;
+		      padding-top: 10px;
+		      padding-bottom: 10px;
+      }}
+
+      .stTabs [aria-selected="true"] {{
+        background-color: #b6fac4;
+      }}
+
+      [data-testid="stElementContainer"]{{
+        background-color: #F0F2F6;
+      }}
+
+      [data-testid="stMarkdownContainer"]{{
+          white-space: pre-wrap;
+		      border-radius: 4px 4px 0px 0px;
+		      gap: 1px;
+		      padding-left: 20px;
+          padding-right: 20px;
+          
+      }}
+      [data-testid="stHeadingWithActionElements"]{{
+
+          height: 90px;
+        
+      }}
+      
+      [data-testid="stButton"]{{
+          padding-left: 50px;
+          
       }}
       </style>
       """,
       unsafe_allow_html=True,
       )
+ #          padding-bottom: 100px;  
+#padding-bottom: 10px;
+#height: 50px;
+
    
-side_bg = 'hotel_img.jpg'
+side_bg = '/content/hotel_img.jpg'
+#side_bg = '/content/hotel_img1.jpg'
+#side_bg = '/content/hotel_img2.jpg'
 sidebar_bg(side_bg)
 
 
@@ -76,8 +122,9 @@ if not os.path.exists(data_input):
 
 # App title and sidebar navigation
 #st.set_page_config(page_title="Hotel Booking Cancelation Prediction App", layout="centered")
+
 st.title("🏨 Hotel Booking Prediction")
-tabs = st.tabs(["📥 Input & Save Data", "🔍 Predict Saved Data"])
+tabs = st.tabs(["  📥 Input & Save Data  ", "  🔍 Predict Saved Data  "])
 
 # Tab 1: Input and Save
 with tabs[0]:
@@ -224,3 +271,4 @@ with tabs[1]:
             st.dataframe(data = pd.read_csv(data_input))
             st.dataframe(pr)
             st.success("✅ Prediction completed!")
+
