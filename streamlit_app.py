@@ -243,7 +243,9 @@ with tabs[0]:
             for i in null_columns:
               st.warning(f"{i} is Required")
           
-        else:
+	elif f5 + f6 == 0
+	    st.warning("Pleas enter number of guest")
+    	else:
             data = pd.read_csv(data_input)
             data = pd.concat([data, row_input], ignore_index=True)
             data.to_csv(data_input, index=False)
