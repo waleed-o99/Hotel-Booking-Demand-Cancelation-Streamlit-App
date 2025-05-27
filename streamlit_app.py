@@ -225,12 +225,13 @@ with tabs[0]:
     for key, value in customer_type.items():
         if key == f16:
             f16 = value
-#___________________________________________________________________________
+#__________________________________________________________________________
 
     if st.button("💾 Save Input"):
         new_row = pd.DataFrame([[f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, 
                                  f13, f14, f15, f16, f17, f18, f19]], columns=column)
-
+	if f5+f6 == 0
+	    f5 = None
         if (new_row.isna().sum() > 0).any():
             st.warning("⚠️ Please fill in all required fields:")
             null_columns = new_row.columns[new_row.isnull().any()]
@@ -244,18 +245,15 @@ with tabs[0]:
               st.warning(f"{i} is Required")
           
         else:
-	    if f5+f6 == 0
-	        st.warning("Please enter number of guest")
-	    else:
-                data = pd.read_csv(data_input)
-                data = pd.concat([data, row_input], ignore_index=True)
-                data.to_csv(data_input, index=False)
-                
-                #Data as Num. for predict model
-                df = pd.read_csv(CSV_FILE)
-                df = pd.concat([df, new_row], ignore_index=True)
-                df.to_csv(CSV_FILE, index=False)
-                st.success("✅ Data saved successfully!")
+            data = pd.read_csv(data_input)
+            data = pd.concat([data, row_input], ignore_index=True)
+            data.to_csv(data_input, index=False)
+            
+            #Data as Num. for predict model
+            df = pd.read_csv(CSV_FILE)
+            df = pd.concat([df, new_row], ignore_index=True)
+            df.to_csv(CSV_FILE, index=False)
+            st.success("✅ Data saved successfully!")
 
 # Tab 2: Predict from Saved Data
 with tabs[1]:
