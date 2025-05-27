@@ -232,17 +232,15 @@ with tabs[0]:
                                  f13, f14, f15, f16, f17, f18, f19]], columns=column)
 
         if (new_row.isna().sum() > 0).any():
-            st.warning("⚠️ Please fill in all required fields:")
-            null_columns = new_row.columns[new_row.isnull().any()]
-            if f2 == None:
-                null_columns = null_columns.drop(["lead_time", "stays_in_weekend_nights", "stays_in_week_nights"])
-                st.warning(" reservation dates is Required")
-
-            #print please fill null_columns
-            #st.warning("⚠️ Please fill in all required fields.")
-            for i in null_columns:
-              st.warning(f"{i} is Required")
-          
+		st.warning("⚠️ Please fill in all required fields:")
+            	null_columns = new_row.columns[new_row.isnull().any()]
+		if f2 == None:
+			null_columns = null_columns.drop(["lead_time", "stays_in_weekend_nights", "stays_in_week_nights"])
+			st.warning(" reservation dates is Required")
+            	#print please fill null_columns
+            	#st.warning("⚠️ Please fill in all required fields.")
+            	for i in null_columns:
+              		st.warning(f"{i} is Required")
 	else:
 		if f5 + f6 == 0
 	    		st.warning("Pleas enter number of guest")
@@ -250,7 +248,6 @@ with tabs[0]:
             		data = pd.read_csv(data_input)
             		data = pd.concat([data, row_input], ignore_index=True)
             		data.to_csv(data_input, index=False)
-            
             		#Data as Num. for predict model
             		df = pd.read_csv(CSV_FILE)
             		df = pd.concat([df, new_row], ignore_index=True)
