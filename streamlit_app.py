@@ -244,15 +244,18 @@ with tabs[0]:
               st.warning(f"{i} is Required")
           
         else:
-            data = pd.read_csv(data_input)
-            data = pd.concat([data, row_input], ignore_index=True)
-            data.to_csv(data_input, index=False)
-            
-            #Data as Num. for predict model
-            df = pd.read_csv(CSV_FILE)
-            df = pd.concat([df, new_row], ignore_index=True)
-            df.to_csv(CSV_FILE, index=False)
-            st.success("✅ Data saved successfully!")
+	    if f5+f6 == 0
+	        st.warning("Please enter number of guest")
+	    else:
+                data = pd.read_csv(data_input)
+                data = pd.concat([data, row_input], ignore_index=True)
+                data.to_csv(data_input, index=False)
+                
+                #Data as Num. for predict model
+                df = pd.read_csv(CSV_FILE)
+                df = pd.concat([df, new_row], ignore_index=True)
+                df.to_csv(CSV_FILE, index=False)
+                st.success("✅ Data saved successfully!")
 
 # Tab 2: Predict from Saved Data
 with tabs[1]:
